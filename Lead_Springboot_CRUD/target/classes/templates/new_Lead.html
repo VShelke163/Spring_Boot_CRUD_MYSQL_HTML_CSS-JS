@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+	<meta charset="ISO-8859-1">
+	<title>Lead Management System</title>
+	<!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css"
+		integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous"> -->
+		<link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css" rel="stylesheet">
+        <script language="javascript">
+
+            function checkEmail() {
+
+                var email = document.getElementById('txtEmail');
+                var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+                if (!filter.test(email.value))
+                {
+                    alert('Please provide a valid email address');
+                    email.focus;
+                    return false;
+                }
+            }
+            function validateName1()
+            {
+                var x = document.getElementById("name").value;
+                if (!x.match(/^[a-z A-Z]+$/))
+                {
+                    alert("Name must be Alphabet only");
+                    document.getElementById("name").value = "";
+                    document.getElementById("name").focus();
+                    return false;
+                } else
+                {
+                    return true;
+                }
+            }
+            function noval()
+            {
+                if (document.getElementById('mobile_number').value != "")
+                {
+                    var y = document.getElementById('mobile_number').value;
+                    if (isNaN(y) || y.indexOf(" ") != -1)
+                    {
+                        alert("Invalid Mobile No.");
+                          document.getElementById("mobile_number").value = "";
+                        document.getElementById('mobile_number').focus();
+                        return false;
+                    }
+
+                    if (y.length > 10 || y.length < 10)
+                    {
+                        alert("Contact No. should be 10 digit");
+                        document.getElementById("mobile_number").value = "";
+                        document.getElementById('mobile_number').focus();
+                        return false;
+                    }
+                    if (!(y.charAt(0) == "9" || y.charAt(0) == "8" || y.charAt(0) == "7"))
+                    {
+                        alert("Contact No. should start with 9 or 8 or 7");
+                        document.getElementById("mobile_number").value = "";
+                        document.getElementById('mobile_number').focus();
+                        return false
+                    }
+                }
+            }
+            //   function validateSelect() {
+            //     var select = document.getElementById("mySelect");
+            //     var selectedValue = select.options[select.selectedIndex].value;
+            //     if (selectedValue === "") {
+            //         alert("Please select an option");
+            //           return false;
+            //     }
+            //    return true;
+            //  }
+                    </script>
+
+
+</head>
+
+<body>
+	<div class="container">
+		<center><h1>Lead Management System</h1></center>
+		<hr>
+		<!-- <h2>Save Lead</h2> -->
+
+		<form action="#" th:action="@{/saveLead}" th:object="${lead}" method="POST" class="well form-horizontal">
+
+			<fieldset>
+
+				<!-- Form Name -->
+				<legend>
+					<center>
+						<h2><b>Registration Form</b></h2>
+					</center>
+				</legend><br>
+				<!-- Text input-->
+
+				<!-- <input type="text" th:field="*{name}"
+				placeholder="Name" class="form-control mb-4 col-4"> -->
+				<div class="form-group">
+					<label class="col-md-4 control-label">Name</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							<input th:field="*{name}" placeholder="Name" class="form-control" type="text" id="name"
+								required onblur="return validateName1()">
+						</div>
+					</div>
+				</div>
+
+				<!-- <input type="text" th:field="*{email}"
+				placeholder="Email" class="form-control mb-4 col-4"> -->
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">E-Mail</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-envelope"></i></span>
+							<input th:field="*{email}" placeholder="E-Mail Address" class="form-control" type="email"
+								id="txtEmail" required onblur="return checkEmail()">
+						</div>
+					</div>
+				</div>
+
+				<!-- <input type="text" th:field="*{gender}"
+				placeholder="Gender" class="form-control mb-4 col-4"> -->
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">Gender</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							<label for="male">&nbsp&nbsp Male &nbsp&nbsp</label>
+							<input value="Male" th:field="*{gender}" id="Male" type="radio" required="">
+							<label for="male"> &nbsp&nbsp Female &nbsp&nbsp</label>
+							<input value="Female" th:field="*{gender}" id="Female" type="radio" required="">
+						</div>
+					</div>
+				</div>
+
+				<!-- <input type="date" th:field="*{dob}"
+				placeholder="DOB" class="form-control mb-4 col-4"> -->
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">Date Of Brith</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-thumbs-up"></i></span>
+							<input th:field="*{dob}" placeholder="Date Of Brith" class="form-control" type="date"
+								required="">
+						</div>
+					</div>
+				</div>
+
+				<!-- <input type="text" th:field="*{contact}"
+				placeholder="Contact" class="form-control mb-4 col-4"> -->
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">Contact No.</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-earphone"></i></span>
+							<input th:field="*{contact}" placeholder="Contact No." class="form-control" type="text"
+								id="mobile_number" maxlength="10" required onblur="return noval()">
+						</div>
+					</div>
+				</div>
+
+				<!-- <input type="text" th:field="*{address}" placeholder="Address" class="form-control mb-4 col-4"> -->
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">Address</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							<input th:field="*{address}" placeholder="Address" class="form-control" type="text"
+								required="">
+						</div>
+					</div>
+				</div>
+
+				<!-- <input type="text" th:field="*{status}" placeholder="Status" class="form-control mb-4 col-4"> -->
+				<div class="form-group">
+					<label class="col-md-4 control-label">Status</label>
+					<div class="col-md-4 selectContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-list"></i></span>
+							<select th:field="*{status}" class="form-control selectpicker" required="" id="mySelect"
+								onchange="validateSelect()">
+								<option value="">Select Status</option>
+								<option value="Enquiry">Enquiry</option>
+								<option value="Follow_up">Follow up</option>
+								<option value="Final">Final</option>
+								<option value="Cancel">Cancel</option>
+
+							</select>
+						</div>
+					</div>
+				</div>
+
+				<!-- <input type="text" th:field="*{remark}" placeholder="Remark" class="form-control mb-4 col-4"> -->
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">Remark</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							<input th:field="*{remark}" placeholder="Remark" class="form-control" type="text"
+								required="">
+						</div>
+					</div>
+				</div>
+
+				<!-- <input type="time" th:field="*{time}" placeholder="Time" class="form-control mb-4 col-4"> -->
+				<!-- Text input-->
+				<div class="form-group">
+					<label class="col-md-4 control-label">Time</label>
+					<div class="col-md-4 inputGroupContainer">
+						<div class="input-group">
+							<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+							<input th:field="*{time}" placeholder="Time" class="form-control" type="datetime-local"
+								required="">
+						</div>
+					</div>
+				</div>
+
+				<!-- Success message -->
+				<div class="alert alert-success" role="alert" id="success_message">Success <i
+						class="glyphicon glyphicon-thumbs-up"></i> Success!.</div>
+
+				<!-- Button -->
+				<div class="form-group">
+					<label class="col-md-4 control-label"></label>
+					<div class="col-md-4"><br>
+						&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp<button type="submit"
+							class="btn btn-warning">&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbspSave Lead <span
+								class="glyphicon glyphicon-send"></span>&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</button>
+					</div>
+				</div>
+
+			</fieldset>
+			<!-- <button type="submit" class="btn btn-info col-2"> Save Lead</button> -->
+		</form>
+
+		<hr>
+
+		<a th:href="@{/}"> Back to Lead List</a>
+	</div>
+</body>
+
+</html>
